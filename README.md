@@ -1,487 +1,340 @@
 <div align="center">
 
-<br>
-
-<!-- ANIMATED STYLE HEADER -->
-```ascii
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                                                                              ║
-║    ██████╗ ██████╗  ██████╗     ███████╗██╗  ██╗████████╗██████╗  █████╗     ║
-║    ██╔══██╗██╔══██╗██╔═══██╗    ██╔════╝╚██╗██╔╝╚══██╔══╝██╔══██╗██╔══██╗    ║
-║    ██╔═══╝ ██╔══██╗██║   ██║    ██╔══╝   ██╔██╗    ██║   ██╔══██╗██╔══██║    ║
-║    ██║     ██║  ██║╚██████╔╝    ███████╗██╔╝ ██╗   ██║   ██║  ██║██║  ██║    ║
-║    ╚═╝     ╚═╝  ╚═╝ ╚═════╝     ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝    ║
-║                                                                              ║
-║                       ⚡ EXTRACTION ENGINE v2.1 ⚡                          ║
-║                                                                              ║
-║  ⭐The Ultimate Automated Credential Extraction & Exploitation Framework⭐  ║                                                                              ║
-╚══════════════════════════════════════════════════════════════════════════════╝
 ```
-┌───────────────────────────────────────────────────────────────────────────── ┐
-│                                                                              │
-│   Pro ExtraFinder is a turnkey, end-to-end offensive framework that          │
-│   automates the full credential-theft kill chain:                            │
-│                                                                              │
-│         DISCOVER  →  EXTRACT  →  VALIDATE  →  EXPLOIT  →  NOTIFY             │
-│                                                                              │
-│   It targets:                                                                │
-│     • Misconfigured web servers leaking .env / .git / config files           │
-│     • Secrets committed to public GitHub / GitLab repos (411 dorks)          │
-│     • Unpatched enterprise apps (34 weaponized CVEs → auto-shell)            │
-│     • Cloud metadata, JS bundles, archives, actuator endpoints               │
-│     • Crypto wallets (ETH private keys, BTC WIF, BIP39 seeds)                │
-│                                                                              │
-│   Evasion:                                                                   │
-│     • 3-layer WAF bypass (header spoof → path mutation → method rotate)      │
-│     • 5 real browser fingerprints rotated per request                        │
-│     • Proxy pool with auto health check + round-robin                        │
-│     • 150ms rate limit per domain — stays under the radar                    │
-│                                                                              │
-│   Output:                                                                    │
-│     • Only VALIDATED credentials reach your Telegram (80+ APIs tested)       │
-│     • Persistent shells deployed on confirmed RCE targets                    │
-│     • Full dedup — never see the same result twice, even after restart       │
-│     • Runs for hours/days unattended. Set it and forget it.                  │
-│                                                                              │
-│   Single Go binary. Zero dependencies. 30,000+ lines. Built for scale.       │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────── ─┘
+ ██████╗ ██████╗  ██████╗     ███████╗██╗  ██╗████████╗██████╗  █████╗ 
+ ██╔══██╗██╔══██╗██╔═══██╗    ██╔════╝╚██╗██╔╝╚══██╔══╝██╔══██╗██╔══██╗
+ ██████╔╝██████╔╝██║   ██║    █████╗   ╚███╔╝    ██║   ██████╔╝███████║
+ ██╔═══╝ ██╔══██╗██║   ██║    ██╔══╝   ██╔██╗    ██║   ██╔══██╗██╔══██║
+ ██║     ██║  ██║╚██████╔╝    ███████╗██╔╝ ██╗   ██║   ██║  ██║██║  ██║
+ ╚═╝     ╚═╝  ╚═╝ ╚═════╝     ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝ By itachi3d 
 ```
 
-<br>
+**The Ultimate Automated Credential Extraction & Exploitation Framework** By itachi3d
 
-<table>
-<tr>
-<td align="center"><b>🎯 120+</b><br><sub>Paths/Domain</sub></td>
-<td align="center"><b>💀 34</b><br><sub>CVEs Weaponized</sub></td>
-<td align="center"><b>✅ 80+</b><br><sub>Auto-Validators</sub></td>
-<td align="center"><b>🕵️ 411</b><br><sub>GitHub Dorks</sub></td>
-<td align="center"><b>🛡️ 36</b><br><sub>WAF Bypasses</sub></td>
-<td align="center"><b>🧵 5K</b><br><sub>Max Threads</sub></td>
-</tr>
-</table>
+<img src="https://img.shields.io/badge/Go-1.25+-00ADD8?style=flat-square&logo=go&logoColor=white" /> <img src="https://img.shields.io/badge/Windows_x64-0078D6?style=flat-square&logo=windows&logoColor=white" /> <img src="https://img.shields.io/badge/v2.1.0-FF0000?style=flat-square" /> <img src="https://img.shields.io/badge/30K+_Lines-8B5CF6?style=flat-square" /> <img src="https://img.shields.io/badge/Single_Binary-2ea44f?style=flat-square" />
 
-## 🎬 How It Works
+</div>
+
+---
+
+## What Is This
 
 ```
-  YOU                          PRO EXTRAFINDER                         YOU
-  ───                          ───────────────                         ───
+DISCOVER  →  EXTRACT  →  VALIDATE  →  EXPLOIT  →  NOTIFY
 
-                    ┌────────────────────────────────┐
-  domains.txt ───►  │                                │
-                    │   ┌─────────┐   ┌──────────┐   │
-  (or)              │   │  SCAN   │──►│ EXTRACT  │   │
-                    │   │ 120+    │   │ Regex +  │   │        ╔════════════╗
-  GitHub ─────────► │   │ paths   │   │ Context  │   │        ║            ║
-                    │   └─────────┘   └────┬─────┘   │        ║  TELEGRAM  ║
-  (or)              │                      │         │───────►║            ║
-                    │              ┌───────▼────── ┐ │        ║ Only VALID ║
-  IP ranges ──────► │              │   VALIDATE    │ │        ║  results   ║
-                    │              │   80+ APIs    │ │        ║            ║
-  (or)              │              │   tested live │ │        ╚════════════╝
-                    │              └────────┬──────┘ │
-  certstream ────►  │                       │        │        ╔════════════╗
-                    │              ┌────────▼──────┐ │        ║            ║
-                    │              │   EXPLOIT     │ │───────►║  resultat/ ║
-                    │              │   34 CVEs     │ │        ║  files     ║
-                    │              │   auto-shell  │ │        ║            ║
-                    │              └───────────────┘ │        ╚════════════╝
-                    │                                │
-                    └────────────────────────────────┘
+Targets:
+  • Web servers leaking .env / .git / configs / JS bundles / archives
+  • Secrets committed to public GitHub / GitLab repos (411 dorks)
+  • Unpatched apps (34 weaponized CVEs → auto-shell deployment)
+  • Cloud metadata (AWS/GCP/Azure IAM tokens via SSRF)
+  • Crypto wallets (ETH keys, BTC WIF, BIP39 seeds with balance check)
 
-  ⏱️ Time: Set it up once. Let it run forever. Wake up to results.
-```
-## 💎 Why Clients Choose Pro ExtraFinder
+Evasion:
+  • 3-layer WAF bypass (headers → path mutation → method rotation)
+  • 5 real browser fingerprints rotated per request
+  • Proxy pool with auto health check + round-robin
 
-### ❌ Without Pro ExtraFinder
-
-- Run 10+ different tools manually
-- Write custom scripts for each target
-- Get thousands of dead/invalid results
-- Lose progress when tools crash
-- Miss secrets in git history & JS bundles
-- Manually verify every credential
-- No notifications — check results manually
-- WAFs block you after 5 requests
-- Spend hours on one target
-
-### ✅ With Pro ExtraFinder
-
-- **One command** does everything
-- **120+ paths** scanned automatically
-- **Only valid results** reach your Telegram
-- **Auto-resume** — never lose progress
-- **Deep scanning** — git packs, JS, archives
-- **80+ validators** test every credential live
-- **Real-time Telegram** alerts for valid hits
-- **3-layer WAF bypass** keeps you undetected
-- **5,000 threads** — scan 100K domains overnight
-
-
-### 🏆 What You Get
-
-┌──────────────────────────────────────────────────────────────────────── ─┐
-│                                                                          │
-│   ✅ Working AWS keys (with IAM access confirmed)                       │
-│   ✅ Working SMTP accounts (SendGrid, Brevo, Mailgun, Mailjet...)       │
-│   ✅ Working AI API keys (OpenAI, Anthropic, Groq, xAI...)              │
-│   ✅ Working payment keys (Stripe, PayPal, Square...)                   │
-│   ✅ Working cloud tokens (GitHub, GitLab, Slack, Discord...)           │
-│   ✅ Working proxy credentials (25+ providers validated)                │
-│   ✅ Working OSINT API keys (Shodan, Censys, VirusTotal...)             │
-│   ✅ Crypto wallets with balance (ETH, BTC, BIP39 seeds)                │
-│   ✅ Admin panel access (40+ bypass techniques)                         │
-│   ✅ Deployed shells (auto-exploit 34 CVEs)                             │
-│   ✅ Full .git history credentials (deleted secrets recovered)          │
-│                                                                         │
-│   All delivered to Telegram. All deduplicated. All validated.           │
-│                                                                         │
-└─────────────────────────────────────────────────────────────────────────┘
+Output:
+  • Only VALIDATED credentials reach Telegram (80+ APIs tested live)
+  • Shells deployed on confirmed RCE. Deduped across restarts.
+  • Runs for days unattended. Single binary. Zero dependencies.
 ```
 
-## ⚡ Feature Breakdown
+---
 
-### 📊 80+ Services — Extracted & Auto-Validated
+## Key Stats
 
-> ⚠️ **Every credential is tested LIVE. Dead = discarded. Working = Telegram alert.**
+| Metric | Value |
+|--------|-------|
+| Paths scanned per domain | **120+** |
+| CVEs weaponized | **34** |
+| Credential validators | **80+** |
+| GitHub dork queries | **411** |
+| WAF bypass techniques | **36** |
+| Auth bypass techniques | **40+** |
+| Max threads | **5,000** |
+| Total code | **30,000+ lines** |
+| Dependencies | **Zero (single binary)** |
+
+---
+
+## Validated Services (80+)
+
+> Every credential is tested LIVE against the real API. Dead = discarded. Working = Telegram.
 
 | Category | Services |
 |----------|----------|
-| ☁️ **Cloud** | AWS Keys, Azure, GCP, Cloudflare, DigitalOcean, Supabase, Vault, Terraform, K8s |
-| 📧 **Email/SMS** | SendGrid, Mailgun, Brevo, Twilio, Mailjet, Postmark, Resend, Plivo, Nexmo, SMTP |
-| 🤖 **AI/LLM** | OpenAI, Anthropic, Groq, xAI, DeepSeek, Perplexity, Mistral, Cohere, ElevenLabs |
-| 💳 **Payments** | Stripe, PayPal, Square |
-| 🛠️ **DevOps** | GitHub, GitLab, Bitbucket, Slack, Discord, Telegram, Grafana, Datadog, Sentry |
-| 🌐 **Proxies** | Smartproxy, BrightData, Oxylabs, IPRoyal + 20 more |
-| 🔍 **OSINT** | Shodan, Censys, VirusTotal, Hunter.io, FOFA, ZoomEye + 10 more |
-| 💰 **Crypto** | ETH private keys, BTC WIF, BIP39 seeds, Solana keys |
-
-<br>
+| ☁️ Cloud | AWS Keys, Azure, GCP, Cloudflare, DigitalOcean, Supabase, Vault, Terraform, K8s |
+| 📧 Email/SMS | SendGrid, Mailgun, Brevo, Twilio, Mailjet, Postmark, Resend, Plivo, Nexmo, SMTP |
+| 🤖 AI/LLM | OpenAI, Anthropic, Groq, xAI, DeepSeek, Perplexity, Mistral, Cohere, ElevenLabs |
+| 💳 Payments | Stripe, PayPal, Square |
+| 🛠️ DevOps | GitHub, GitLab, Bitbucket, Slack, Discord, Telegram, Grafana, Datadog, Sentry |
+| 🌐 Proxies (25) | Smartproxy, BrightData, Oxylabs, IPRoyal, SOAX, NetNut + 19 more |
+| 🔍 OSINT (16) | Shodan, Censys, VirusTotal, Hunter, FOFA, ZoomEye + 10 more |
+| 💰 Crypto | ETH private keys (3 chains), BTC WIF, BIP39 seeds, Solana |
+| 🏠 Hosting | cPanel (API), WordPress Admin |
 
 ---
 
-### 💀 CVE Auto-Exploitation — 34 Weaponized
+## CVE Auto-Exploitation (34)
 
-> **Detects → Confirms → Exploits → Deploys shell. Zero human interaction.**
-
-<br>
+> Fingerprint → Confirm → Exploit → Deploy shell. Fully automatic.
 
 <details>
-<summary><b>🔽 Click to expand all 34 CVEs</b></summary>
-<br>
+<summary><b>Click to see all 34 CVEs</b></summary>
 
-- [x] CVE-2021-3129 — **Laravel Ignition** → RCE + .env dump
-- [x] CVE-2022-22965 — **Spring4Shell** → JSP/PHP shell deploy
-- [x] CVE-2024-27198 — **TeamCity** → Auth bypass + all configs
-- [x] CVE-2024-4040 — **CrushFTP** → Path traversal + file read
-- [x] CVE-2024-40711 — **Veeam Backup** → Credential extraction
-- [x] CVE-2024-21762 — **FortiOS** → SSL VPN config extract
-- [x] CVE-2021-44228 — **Log4Shell** → JNDI + env dump
-- [x] CVE-2017-9841 — **PHPUnit** → RCE + shell deploy
-- [x] CVE-2023-23752 — **Joomla** → API disclosure + secrets
-- [x] CVE-2024-23897 — **Jenkins** → File read + master.key
-- [x] CVE-2021-43798 — **Grafana** → Path traversal + configs
-- [x] CVE-2025-29927 — **Next.js** → Middleware bypass
-- [x] CVE-2024-1709 — **ScreenConnect** → Auth bypass + RCE
-- [x] CVE-2024-3400 — **PAN-OS** → PHP auth bypass
-- [x] CVE-2024-24919 — **Check Point VPN** → File read
-- [x] CVE-2024-40766 — **SonicWall** → VPN auth bypass
-- [x] CVE-2024-8190 — **Ivanti CSA** → RCE
-- [x] CVE-2024-20767 — **ColdFusion** → File read / RCE
-- [x] CVE-2024-53677 — **Struts2** → OGNL injection
-- [x] CVE-2024-4358 — **Telerik** → File upload / RCE
-- [x] CVE-2024-50623 — **Cleo** → Groovy RCE
-- [x] CVE-2024-28255 — **OpenMetadata** → Auth bypass
-- [x] CVE-2023-22518 — **Confluence** → Auth bypass
-- [x] CVE-2023-46604 — **ActiveMQ** → Protocol RCE
-- [x] CVE-2025-47953 — **Langflow** → Component + shell
-- [x] CVE-2025-31324 — **SAP NetWeaver** → Metadata RCE
-- [x] CVE-2025-32432 — **Craft CMS** → Injection + shell
-- [x] CVE-2025-0108 — **PAN-OS** → PHP bypass
-- [x] CVE-2024-4577 — **PHP CGI (Win)** → Arg injection
-- [x] CVE-2017-12617 — **Tomcat** → PUT shell upload
-- [x] CVE-2017-5638 — **Struts2** → OGNL via headers
-- [x] CVE-2024-21887 — **Ivanti Connect** → Cmd injection
-- [x] CVE-2024-37085 — **VMware** → Auth bypass
-- [x] CVE-2024-43090 — **mod_fcgid** → RCE
+| # | CVE | Target | Impact |
+|---|-----|--------|--------|
+| 1 | CVE-2021-3129 | Laravel Ignition | RCE + .env dump |
+| 2 | CVE-2022-22965 | Spring4Shell | JSP/PHP shell |
+| 3 | CVE-2024-27198 | TeamCity | Auth bypass + configs |
+| 4 | CVE-2024-4040 | CrushFTP | Path traversal |
+| 5 | CVE-2024-40711 | Veeam | Credential extraction |
+| 6 | CVE-2024-21762 | FortiOS | SSL VPN config |
+| 7 | CVE-2021-44228 | Log4Shell | JNDI + env dump |
+| 8 | CVE-2017-9841 | PHPUnit | RCE + shell |
+| 9 | CVE-2023-23752 | Joomla | API secrets |
+| 10 | CVE-2024-23897 | Jenkins | master.key read |
+| 11 | CVE-2021-43798 | Grafana | Path traversal |
+| 12 | CVE-2025-29927 | Next.js | Middleware bypass |
+| 13 | CVE-2024-1709 | ScreenConnect | Auth bypass + RCE |
+| 14 | CVE-2024-3400 | PAN-OS | PHP bypass |
+| 15 | CVE-2024-24919 | Check Point | File read |
+| 16 | CVE-2024-40766 | SonicWall | VPN bypass |
+| 17 | CVE-2024-8190 | Ivanti CSA | RCE |
+| 18 | CVE-2024-20767 | ColdFusion | RCE |
+| 19 | CVE-2024-53677 | Struts2 | OGNL injection |
+| 20 | CVE-2024-4358 | Telerik | File upload |
+| 21 | CVE-2024-50623 | Cleo | Groovy RCE |
+| 22 | CVE-2024-28255 | OpenMetadata | Auth bypass |
+| 23 | CVE-2023-22518 | Confluence | Auth bypass |
+| 24 | CVE-2023-46604 | ActiveMQ | Protocol RCE |
+| 25 | CVE-2025-47953 | Langflow | Shell deploy |
+| 26 | CVE-2025-31324 | SAP NetWeaver | RCE |
+| 27 | CVE-2025-32432 | Craft CMS | Shell deploy |
+| 28 | CVE-2025-0108 | PAN-OS | PHP bypass |
+| 29 | CVE-2024-4577 | PHP CGI | Arg injection |
+| 30 | CVE-2017-12617 | Tomcat | PUT shell |
+| 31 | CVE-2017-5638 | Struts2 | OGNL headers |
+| 32 | CVE-2024-21887 | Ivanti Connect | Cmd injection |
+| 33 | CVE-2024-37085 | VMware | Auth bypass |
+| 34 | CVE-2024-43090 | mod_fcgid | RCE |
 
 </details>
 
-<br>
+---
+
+## Stealth & Evasion
+
+| Layer | What It Does |
+|-------|-------------|
+| **Browser Rotation** | 5 real profiles (Chrome, Firefox, Safari, Edge, iOS) + matching headers |
+| **WAF Bypass** | Header spoof (84 combos) → Path mutation (12 variants) → Method bypass (6 alt) |
+| **Infrastructure** | Proxy pool + health check, round-robin, 150ms/domain, TLS CONNECT tunnel |
 
 ---
 
-### 🛡️ Stealth & Evasion — 3 Layers
+## GitHub Hunt (411 Queries)
 
-> **Stays undetected even against aggressive WAFs.**
-
-╔══════════════════════════════════════════════════════════════════════════╗
-║                                                                          ║
-║   LAYER 1 — BROWSER FINGERPRINTING                                       ║
-║   ┌──────────────────────────────────────────────────────────────────┐   ║
-║   │ 5 real browser profiles rotated per request:                     │   ║
-║   │   Chrome 120 · Firefox 121 · Safari 17 · Edge 120 · Chrome iOS   │   ║
-║   │ + matching Accept, Accept-Language, Sec-CH-UA, Sec-Fetch-*       │   ║
-║   └──────────────────────────────────────────────────────────────────┘   ║
-║                                                                          ║
-║   LAYER 2 — WAF BYPASS  (triggers on 403 / block)                        ║
-║   ┌──────────────────────────────────────────────────────────────────┐   ║
-║   │ Step 1: Header spoofing  —  12 IPs × 7 headers  =  84 combos     │   ║
-║   │ Step 2: Path mutation    —  12 variants  (//path, /./path, %00)  │   ║
-║   │ Step 3: Method bypass    —  POST · HEAD · OPTIONS · PUT · PATCH  │   ║
-║   └──────────────────────────────────────────────────────────────────┘   ║
-║                                                                          ║
-║   LAYER 3 — INFRASTRUCTURE                                               ║
-║   ┌──────────────────────────────────────────────────────────────────┐   ║
-║   │ • Proxy pool with auto-health-check (drops dead nodes)           │   ║
-║   │ • Round-robin rotation across all alive proxies                  │   ║
-║   │ • 150 ms per-unique-domain rate limit                            │   ║
-║   │ • Custom TLS CONNECT tunnel for HTTPS through HTTP proxies       │   ║
-║   │ • Connection pooling + keep-alive management                     │   ║
-║   └──────────────────────────────────────────────────────────────────┘   ║
-║                                                                          ║
-╚══════════════════════════════════════════════════════════════════════════╝
+| Feature | Details |
+|---------|---------|
+| **Queries** | 411 patterns: AWS, SMTP, AI, Git tokens, Slack, Crypto, CI/CD, Docker, K8s, Proxy, OSINT |
+| **Token Pool** | Multi-token rotation, auto rate limit detection, pause + switch |
+| **Persistence** | Progress saved per query, deduped across sessions, crash-safe resume |
+| **Deep Scan** | Downloads real file content, credential regex, not just search titles |
 
 ---
 
-### 🕵️ GitHub Hunt — 411 Dork Queries
+## Advanced Scanning
 
-> **Automated credential hunting across all public GitHub repos.**
-
-<br>
-
-- [x] **411 Queries** — AWS · SMTP · AI keys · Git tokens · Slack · Crypto · CI/CD · Docker · K8s · Databases · Proxy · OSINT · Payment
-- [x] **Token Pool** — Multi-token rotation · Auto rate limit detection · Pause + switch · Wait for reset
-- [x] **Persistence** — Progress saved every query (crash-safe) · Deduped across sessions · Resumes where it stopped
-- [x] **Deep Scan** — Downloads actual file content · Scans with credential regex · Not just search results
-
-<br>
-
----
-
-### 🔬 Advanced Scanning Modules
-
-> **Beyond basic .env scanning — deep extraction from complex targets.**
-
-<br>
-
-- [x] **JS Bundle Analysis** — Extracts all `<script src>` from HTML, downloads each bundle (<20MB), scans minified code for embedded API keys, tokens, and connection strings
-- [x] **Archive Scanner** — Detects exposed ZIP/TAR.GZ/JAR/WAR files, extracts and scans internal files (.env, .properties, .yml, credentials.json, private keys)
-- [x] **HeapDump Extraction** — Downloads Spring Boot `/actuator/heapdump` (HPROF format), saves locally, extracts passwords/tokens/connection strings from JVM memory
-- [x] **Git Pack Parsing** — Downloads `.git/objects/pack/*.idx` + `.pack`, parses fan-out tables, decompresses zlib objects, reconstructs **full commit history** — finds deleted credentials
-- [x] **phpinfo() Scanner** — Extracts all sensitive variables from phpinfo HTML output, detects PHP version and maps to applicable CVEs
-- [x] **SSRF to Cloud Metadata** — Tests `169.254.169.254` (IMDSv1) for EC2/GCP/Azure IAM tokens, user-data, instance profiles
-- [x] **Spring Cloud Config** — Extracts property sources with credentials from exposed config endpoints
-- [x] **Consul KV Dump** — Enumerates Consul key-value store for secrets, tokens, database credentials
-- [x] **Elasticsearch Index Dump** — Lists indices, reads `_search` results, extracts credentials from indexed documents
-- [x] **Docker API Extraction** — Connects to exposed Docker daemon (2375/2376), enumerates containers, reads `/proc/1/environ` for all env vars
-- [x] **Kubernetes Secrets** — Accesses unauthorized K8s API, lists namespaces, reads secrets and configmaps
-- [x] **WebDAV/NTLM Enum** — PROPFIND enumeration + NTLM authentication detection for relay attacks
-- [x] **Hadoop/Spark** — Scans ResourceManager, NameNode JMX, Spark Environment for AWS keys in Hadoop XML configs
-
-<br>
+| Module | What It Does |
+|--------|-------------|
+| **JS Bundles** | Downloads all script sources, scans minified code for embedded secrets |
+| **Archives** | Extracts ZIP/TAR/JAR/WAR, scans internal .env/.properties/.yml/keys |
+| **HeapDump** | Downloads Spring Boot HPROF, extracts passwords from JVM memory |
+| **Git Packs** | Parses .idx + .pack, reconstructs full history, finds deleted credentials |
+| **phpinfo()** | Extracts sensitive vars, detects PHP version, maps to CVEs |
+| **SSRF/IMDS** | Tests 169.254.169.254 for AWS/GCP/Azure IAM tokens |
+| **Spring Config** | Extracts property sources from exposed config server |
+| **Consul KV** | Dumps key-value store secrets |
+| **Elasticsearch** | Lists indices, extracts credentials from documents |
+| **Docker API** | Enumerates containers, reads /proc/1/environ |
+| **K8s Secrets** | Lists namespaces, reads secrets and configmaps |
+| **WebDAV** | PROPFIND enumeration + NTLM detection |
+| **Hadoop/Spark** | Extracts AWS keys from Hadoop XML and Spark env |
 
 ---
 
-### 🌐 Web Security Scanners
+## Web Security Scanners
 
-> **Full web app assessment beyond credential extraction.**
-
-<br>
-
-- [x] **Admin Panel Finder** — Discovers admin/login panels across multiple CMS paths with response analysis
-- [x] **CORS Misconfiguration** — Tests for wildcard origins, reflected origins, credential inclusion with arbitrary domains
-- [x] **Cookie Security Audit** — Checks HttpOnly, Secure, SameSite flags, identifies session fixation risks
-- [x] **Deep Web Crawler** — Recursive link extraction + JS URL discovery, configurable depth, with optional credential scanning on discovered pages
-- [x] **Vulnerability Scanner** — SQLi (UNION/error-based), XSS (reflected/stored), LFI (path traversal + PHP filters), SSRF (internal access)
-- [x] **Credential Validator** — Direct protocol testing: SSH, FTP, MySQL, PostgreSQL, Redis, MongoDB, Elasticsearch brute-force
-
-<br>
+| Scanner | Capability |
+|---------|-----------|
+| **Admin Finder** | Discovers admin/login panels across CMS paths |
+| **CORS** | Tests wildcard origins, reflected origins, credential inclusion |
+| **Cookies** | Checks HttpOnly, Secure, SameSite flags |
+| **Crawler** | Recursive link + JS URL discovery, configurable depth |
+| **Vuln Scanner** | SQLi, XSS, LFI, SSRF detection |
+| **Cred Checker** | SSH, FTP, MySQL, PostgreSQL, Redis, MongoDB testing |
 
 ---
 
-### 🌍 Domain & Target Discovery
+## Domain Discovery
 
-> **Multiple sources for finding new targets automatically.**
-
-<br>
-
-- [x] **CertStream** — Real-time WebSocket to Certificate Transparency logs, filters by keywords, optional auto-scan
-- [x] **crt.sh** — Subdomain enumeration from CT logs with dedup + auto-scan integration
-- [x] **Google Dorking** — Targeted dork queries for exposed configurations and credentials
-- [x] **Multi-Source Harvest** — Combines 10+ OSINT sources (OTX, DNSDumpster, RapidDNS, HackerTarget, Wayback, URLScan, etc.)
-- [x] **IP Scanner** — Scans official IP ranges from AWS/GCP/Azure/DO/Vultr/Hetzner/Oracle/Alibaba/Tencent, port scanning + service fingerprinting
-- [x] **Random IP Generation** — Generates random public IPs and scans for web services
-- [x] **SaaS Scoring** — Fingerprints and scores domains by technology stack, prioritizes high-value targets
-- [x] **Cascade Mode** — SaaS scoring → prioritized envdump, scans best targets first
-- [x] **S3 Bucket Scanner** — Generates bucket name variants from domain, lists contents, downloads credentials from open buckets (AWS, GCP, Azure, Oracle, DO)
-
-<br>
+| Source | Method |
+|--------|--------|
+| **CertStream** | Real-time CT log WebSocket + keyword filter |
+| **crt.sh** | Subdomain enumeration from CT logs |
+| **Google Dorks** | Targeted queries for exposed configs |
+| **Harvest** | 10+ OSINT sources combined |
+| **IP Scanner** | AWS/GCP/Azure/DO/Vultr/Hetzner/Oracle/Alibaba/Tencent ranges |
+| **Random IPs** | Generate + scan random public IPs |
+| **SaaS Scoring** | Prioritize high-value targets by tech stack |
+| **S3 Buckets** | Open bucket scanning (AWS, GCP, Azure, Oracle, DO) |
 
 ---
 
-### 📱 Remote Control & Export
+## Remote Control & Export
 
-> **Manage everything remotely, export in any format.**
-
-<br>
-
-- [x] **Telegram C2 Bot** — Full remote control: scan targets, receive results, upload domain lists, check stats, graceful shutdown
-- [x] **Web Dashboard** — Real-time stats + results viewer on `http://localhost:8080` with authentication
-- [x] **JSON Export** — `toolkit export-json output.json` — structured export of all results
-- [x] **CSV Export** — `toolkit export-csv output.csv` — spreadsheet-compatible export
-- [x] **Retro-Send** — `toolkit retro-send` — re-sends all validated results to Telegram (for missed notifications)
-- [x] **Checkpoint/Resume** — All scan progress saved to disk, auto-resumes on restart from exact position
-- [x] **Credential Dedup** — SHA256-based deduplication persisted across restarts, never processes same credential twice
-
-<br>
+| Feature | Details |
+|---------|---------|
+| **Telegram C2** | Scan targets, receive results, upload lists, stats, shutdown — all from phone |
+| **Dashboard** | Web UI on :8080 with real-time stats |
+| **JSON Export** | `toolkit export-json output.json` |
+| **CSV Export** | `toolkit export-csv output.csv` |
+| **Retro-Send** | Re-send all results to Telegram |
+| **Resume** | All progress saved, crash-safe, auto-resume |
+| **Dedup** | SHA256 dedup persisted across restarts |
 
 ---
 
-### ⚔️ Manual Exploit Mode
-
-> **Targeted exploitation with custom payloads.**
-
-<br>
+## Manual Exploit Mode
 
 ```bash
 toolkit exploit --cve CVE-2017-9841 --target https://target.com --cmd "id"
 toolkit exploit --cve CVE-2024-27198 --target https://target.com --add-user admin:pass
 toolkit exploit --cve JENKINS-SCRIPT --target https://target.com --cmd "cat /etc/passwd"
 toolkit exploit --cve CVE-2024-24919 --target https://target.com --file /etc/shadow
-toolkit exploit --cve CVE-2024-4040 --target https://target.com --file /etc/passwd
 ```
 
 | Flag | Purpose |
 |------|---------|
-| `--cve` | CVE identifier to exploit |
+| `--cve` | CVE to exploit |
 | `--target` | Target URL |
-| `--cmd` | Command to execute (default: `id`) |
-| `--add-user` | Create backdoor user (`user:pass`) |
-| `--reverse-shell` | Reverse shell callback (`host:port`) |
-| `--file` | File path to read from target |
-
-<br>
+| `--cmd` | Command to run (default: id) |
+| `--add-user` | Create backdoor user |
+| `--reverse-shell` | Reverse shell callback |
+| `--file` | File to read from target |
 
 ---
 
-## 📁 Output Structure
+## Quick Start
+
+```bash
+go build -ldflags="-s -w" -o toolkit.exe .
+
+# Full scan
+toolkit.exe envdump domains.txt 1000 --full --proxy-file proxies.txt
+
+# GitHub hunt
+toolkit.exe github-scan
+
+# Interactive menu
+Start_Work_Extractor.bat
+```
+
+---
+
+## CLI Reference
+
+```bash
+# Scanning
+toolkit envdump     <domains.txt> [threads] [--full] [--probe] [--verbose]
+toolkit find-git    <domains.txt> [threads]
+toolkit gitdump     <vulns.txt>   [threads]
+
+# Validation
+toolkit check-aws   <file> [threads]
+toolkit check-smtp  <file> [threads]
+toolkit check-all
+
+# Discovery
+toolkit certstream  [threads] [--auto-scan]
+toolkit harvest     [threads] [--seeds=a,b]
+toolkit dork        <output> [max]
+toolkit ipscan      --provider aws,gcp --threads 500
+
+# GitHub
+toolkit github-scan [token_file]
+toolkit gh-private  <token_or_file>
+toolkit gist-scan
+
+# Web Security
+toolkit admin       <urls.txt> [threads]
+toolkit cors        <urls.txt> [threads]
+toolkit vuln        <urls.txt> [threads] [--types=sql,xss,lfi,ssrf]
+toolkit crawl       <urls.txt> [threads] [--depth N]
+toolkit exploit     --cve <CVE> --target <url>
+
+# Dark Web
+toolkit darkweb scan <domain>
+toolkit darkweb breach <domain>
+
+# Utilities
+toolkit bot
+toolkit dashboard
+toolkit export-json [file]
+toolkit export-csv  [file]
+toolkit retro-send
+toolkit pro
+```
+
+---
+
+## Output Files
 
 ```
 resultat/
-│
-│  ╔═══ RAW HITS (credentials found, pending validation) ═══╗
-│  ║                                                          ║
-├──╫── aws_hits.txt              AWS AKIA + Secret pairs       ║
-├──╫── smtp_hits.txt             SMTP host:user:pass           ║
-├──╫── sendgrid_hits.txt         SG.xxxxx keys                 ║
-├──╫── brevo_hits.txt            xkeysib-xxxxx keys            ║
-├──╫── twilio_hits.txt           ACsid:token pairs             ║
-├──╫── mailgun_hits.txt          domain:key pairs              ║
-├──╫── mailjet_hits.txt          public:secret pairs           ║
-├──╫── api_keys_hits.txt         Generic API keys              ║
-├──╫── github_tokens.txt         GitHub PATs discovered        ║
-│  ║                                                          ║
-│  ╚══════════════════════════════════════════════════════════╝
-│
-│  ╔═══ VALIDATED (confirmed working — sent to Telegram) ══════╗
-│  ║                                                            ║
-├──╫── aws_valid.txt             ✅ Working AWS keys           ║
-├──╫── aws_backdoors.txt         ✅ IAM backdoors created      ║
-├──╫── api_keys_valid.txt        ✅ Working API keys           ║
-├──╫── mailjet_valid.txt         ✅ Working Mailjet            ║
-├──╫── admin_panels_valid.txt    ✅ Confirmed admin access     ║
-├──╫── eth_keys_valid.txt        ✅ ETH keys with balance      ║
-├──╫── btc_wif_valid.txt         ✅ BTC keys validated         ║
-├──╫── deepseek_valid.txt        ✅ Working DeepSeek keys      ║
-│  ║                                                           ║
-│  ╚═══════════════════════════════════════════════════════════╝
-│
-│  ╔═══ EXPLOITATION ══════════════════════════════════════════╗
-│  ║                                                           ║
-├──╫── git_hits.txt              Exposed .git repositories     ║
-├──╫── rce_verified.txt          Confirmed RCE targets         ║
-├──╫── deployed.txt              Shells successfully deployed  ║
-├──╫── env_raw_hits.txt          Full .env file contents       ║
-│  ║                                                           ║
-│  ╚═══════════════════════════════════════════════════════════╝
-│
-└── telegram_resultat.txt        Full log of all notifications
+├── aws_hits.txt            Raw AWS key pairs
+├── aws_valid.txt           ✅ Confirmed working
+├── aws_backdoors.txt       ✅ IAM users created
+├── smtp_hits.txt           SMTP credentials
+├── sendgrid_hits.txt       SendGrid keys
+├── brevo_hits.txt          Brevo keys
+├── twilio_hits.txt         Twilio SID:Token
+├── api_keys_valid.txt      ✅ Validated API keys
+├── admin_panels_valid.txt  ✅ Admin access
+├── eth_keys_valid.txt      ✅ ETH with balance
+├── git_hits.txt            Exposed .git repos
+├── rce_verified.txt        Confirmed RCE
+├── deployed.txt            Shells deployed
+└── telegram_resultat.txt   Notification log
 ```
 
-## 🏗️ Source Architecture
+---
 
-```
-Pro ExtraFinder/
-│
-├── toolkit.go              ← CLI dispatcher, Telegram bot, proxy pool,
-│                              WAF bypass, dark web module (~3,900 lines)
-│
-├── rezandtlg.go            ← Core engine: envdump, extraction, provider
-│                              validators, BIP39, detection (~8,800 lines)
-│
-├── verif_rce.go            ← 34 CVE verifications, exploitation, git pack
-│                              parsing, post-exploitation (~3,900 lines)
-│
-├── checkers.go             ← 80+ credential validators: cloud, email, AI,
-│                              proxy, OSINT, crypto, hosting (~7,300 lines)
-│
-├── github_scan.go          ← GitHub/GitLab code search, 411 queries, token
-│                              rotation, private repo dump (~2,900 lines)
-│
-├── scanners.go             ← S3/IP scanning, domain discovery, SaaS
-│                              scoring engine (~2,600 lines)
-│
-├── auth_bypass.go          ← 40+ auth bypass techniques (~350 lines)
-├── certstream.go           ← Real-time CT monitoring (~600 lines)
-├── admin_scanner.go        ← Admin panel discovery
-├── cors_scanner.go         ← CORS misconfiguration testing
-├── cookie_scanner.go       ← Cookie security analysis
-├── advanced_crawler.go     ← Deep web crawler + JS analysis
-├── vuln_scanner.go         ← SQLi/XSS/LFI/SSRF scanner
-├── credential_validator.go ← SSH/FTP/MySQL/Redis/MongoDB validator
-├── exploit.go              ← Active CVE exploitation engine
-├── dashboard.go            ← Web dashboard + stats API (~180 lines)
-├── config.go               ← Configuration, queues, workers (~480 lines)
-│
-├── settings.json           ← Runtime configuration
-├── domains.txt             ← Target input file
-├── proxies1.txt            ← Proxy list
-├── token.txt               ← GitHub tokens
-│
-├── Start_Work_Extractor.bat ← Interactive launcher
-├── Start_Bot.bat            ← Telegram bot launcher
-├── Start_Dashboard.bat      ← Dashboard launcher
-│
-└── resultat/               ← All output (hits, validated, exploits)
-```
+## Project Structure
 
-<a href="https://t.me/Itachi3d">
-<img src="https://img.shields.io/badge/Telegram-@Itachi3d-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" />
-</a>
+| File | Role | Lines |
+|------|------|------:|
+| toolkit.go | CLI, Telegram bot, proxy, WAF bypass | 3,900 |
+| rezandtlg.go | Core scanner, extraction, validators | 8,800 |
+| verif_rce.go | 34 CVE exploits, git parsing | 3,900 |
+| checkers.go | 80+ credential validators | 7,300 |
+| github_scan.go | GitHub hunt, 411 queries | 2,900 |
+| scanners.go | IP/S3 scanning, discovery | 2,600 |
+| auth_bypass.go | 40+ bypass techniques | 350 |
+| vuln_scanner.go | SQLi/XSS/LFI/SSRF | - |
+| exploit.go | Manual CVE exploitation | - |
+| dashboard.go | Web UI + API | 180 |
 
-<br><br>
+---
 
-```
-  ┌─────────────────────────────────────────────────────┐
-  │                                                     │
-  │    Built with precision by @ItachiDEV               │
-  │                                                     │
-  │   "Why use 10 tools when one does it all?"          │
-  │                                                     │
-  └─────────────────────────────────────────────────────┘
-```
+<div align="center">
 
-<br>
+<a href="https://t.me/Itachi3d"><img src="https://img.shields.io/badge/Telegram-@Itachi3d-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" /></a>
 
-<img src="https://img.shields.io/badge/Made_with-Go-00ADD8?style=flat-square&logo=go&logoColor=white" />
-<img src="https://img.shields.io/badge/Code-30K+_Lines-8B5CF6?style=flat-square" />
-<img src="https://img.shields.io/badge/Status-Active_Development-success?style=flat-square" />
-<img src="https://img.shields.io/badge/License-Private-FF0000?style=flat-square" />
+**"Why use 10 tools when one does it all?"**
 
-<br><br>
-
-⭐ **Star this repo if it impressed you.**
+<img src="https://img.shields.io/badge/Made_with-Go-00ADD8?style=flat-square&logo=go&logoColor=white" /> <img src="https://img.shields.io/badge/Status-Active-success?style=flat-square" /> <img src="https://img.shields.io/badge/License-Private-FF0000?style=flat-square" />
 
 </div>
-
