@@ -8,7 +8,7 @@
  ██║     ██║  ██║╚██████╔╝    ███████╗██╔╝ ██╗   ██║   ██║  ██║██║  ██║
  ╚═╝     ╚═╝  ╚═╝ ╚═════╝     ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝ 
 ```
-             ⚡ EXTRACTION ENGINE v2.1 ⚡y itachi3d 
+             ⚡ EXTRACTION ENGINE v2.1 ⚡By itachi3d 
 **The Ultimate Automated Credential Extraction & Exploitation Framework** 
 
 <img src="https://img.shields.io/badge/Go-1.25+-00ADD8?style=flat-square&logo=go&logoColor=white" /> <img src="https://img.shields.io/badge/Windows_x64-0078D6?style=flat-square&logo=windows&logoColor=white" /> <img src="https://img.shields.io/badge/v2.1.0-FF0000?style=flat-square" /> <img src="https://img.shields.io/badge/30K+_Lines-8B5CF6?style=flat-square" /> <img src="https://img.shields.io/badge/Single_Binary-2ea44f?style=flat-square" />
